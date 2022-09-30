@@ -24,13 +24,13 @@ class Engine(object):
         self.maxRPM = 100
         self.theTank = Tank()
 
-    def updateModel(self,dt):
+    def updateModel(self,data):
         if self.theTank.contents > 0:
             self.currentRPM = self.throttlePosition * self.maxRPM
             self.theTank.remove(
                 self.currentRPM * self.consumptionRate)
             self.theGearbox.rotate(
-                self.currentRPM * (dt / 60))
+                self.currentRPM * (data / 60))
         else:
             self.currentRPM = 0
 
