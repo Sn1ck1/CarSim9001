@@ -4,7 +4,7 @@ from random import randint
 
 
 class Car(object):
-
+    pass
 
 class Wheel(object):
     def __init__(self):
@@ -15,7 +15,7 @@ class Wheel(object):
         self.orientation = (self.orientation + degreesOfRotation % 360)
 
 class Engine(object):
-
+    pass
 
 class Gearbox(object):
     def __init__(self):
@@ -24,26 +24,19 @@ class Gearbox(object):
         self.clutchEnganged = False
         self.currentGear = 0
 
-    def shiftUp(self, currentGear):
-        self.currentGear += currentGear
-        if self.currentGear >6:
-            self.currentGear = 6
-        elif self.currentGear <6:
-            self.currentGear = +1
+    def shiftUp(self):
+        if self.currentGear < len(
+                self.gears) - 1 and not self.clutchEngaged:
+            self.currentGear = self.currentGear + 1
 
-
-    def shiftDown(self,currentGear):
-        self.currentGear -= currentGear
-        if self.currentGear <0:
-            self.currentGear = 0
-        elif self.currentGear >0:
-            self.currentGear = -1
-
+    def shiftDown(self):
+        if self.currentGear > 0 and not self.clutchEngaged:
+            self.currentGear = self.currentGear - 1
 
     def rotate(self, revolutions):
-        if self.clutchEnganged:
-            for Wheel in self.wheels:
-                self.wheels[Wheel].rotate(revolutions * self.gears[self.currentGear])
+        if self.clutchEngaged:
+            for wheel in self.wheels:
+                self.wheels[wheel].rotate(revolutions * self.gears[self.currentGear])
 
 
 class Tank(object):
@@ -58,11 +51,5 @@ class Tank(object):
         self.contents -= amount
         if self.contents <0:
             self.contents = 0
-
-
-
-
-
-
 
 
