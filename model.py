@@ -21,7 +21,7 @@ class Gearbox(object):
     def __init__(self):
         self.wheels ={'FR':Wheel(), 'FL':Wheel(), 'BR':Wheel(), 'BL':Wheel()}
         self.gears = [0, 0.8, 1, 1.4, 2.2, 3.8]
-        self.clutchEnganged = False
+        self.clutchEngaged = False
         self.currentGear = 0
 
     def shiftUp(self):

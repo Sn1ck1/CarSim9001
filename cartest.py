@@ -114,7 +114,7 @@ class GearboxTester(unittest.TestCase):
         self.assertIn(2.2, self.gearbox.gears)
         self.assertIn(3.8, self.gearbox.gears)
         self.assertEqual(self.gearbox.currentGear, 0)
-        self.assertListEqual(['frontLeft', 'frontRight', 'rearLeft', 'rearRight'], list(self.gearbox.wheels.keys()))
+        self.assertListEqual(['FR', 'FL', 'BR', 'BL'], list(self.gearbox.wheels.keys()))
         for e in self.gearbox.wheels.values():
             self.assertIsInstance(e, model.Wheel)
 
@@ -136,16 +136,16 @@ class GearboxTester(unittest.TestCase):
 
     def testRotate(self):
         self.gearbox.rotate(1)
-        beforeRot = self.gearbox.wheels['frontLeft'].orientation
-        self.assertEqual(self.gearbox.wheels['frontLeft'].orientation, beforeRot)
+        beforeRot = self.gearbox.wheels['FR'].orientation
+        self.assertEqual(self.gearbox.wheels['FR'].orientation, beforeRot)
         self.gearbox.shiftUp()
-        self.gearbox.wheels['frontLeft'].orientation = 0
+        self.gearbox.wheels['FL'].orientation = 0
         self.gearbox.rotate(1)
-        self.assertEqual(self.gearbox.wheels['frontLeft'].orientation, 0)
-        self.gearbox.wheels['frontLeft'].orientation = 0
+        self.assertEqual(self.gearbox.wheels['FL'].orientation, 0)
+        self.gearbox.wheels['FL'].orientation = 0
         self.gearbox.clutchEngaged = True
         self.gearbox.rotate(1)
-        self.assertEqual(self.gearbox.wheels['frontLeft'].orientation, 360 * 0.8)
+        self.assertEqual(self.gearbox.wheels['FL'].orientation, 360 * 0.8)
 
 if __name__ == "__main__":
     unittest.main()
