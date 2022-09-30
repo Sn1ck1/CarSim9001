@@ -67,38 +67,38 @@ class EngineTester(unittest.TestCase):
     def testInit(self):
         self.assertIsInstance(self.engine.theGearbox, model.Gearbox)
         self.assertIsInstance(self.engine.theTank, model.Tank)
-        self.assertEqual(self.engine.maxRpm, 100)
-        self.assertEqual(self.engine.currentRpm, 0)
+        self.assertEqual(self.engine.maxRPM, 100)
+        self.assertEqual(self.engine.currentRPM, 0)
         self.assertEqual(self.engine.throttlePosition, 0)
-        self.assertEqual(self.engine.consumptionConstant, 0.0025)
+        self.assertEqual(self.engine.consumptionRate, 0.0025)
 
     def testUpdateModel(self):
         # Test nul throttle
         self.engine.updateModel(60)
-        self.assertEqual(self.engine.currentRpm, 0)
+        self.assertEqual(self.engine.currentRPM, 0)
         # Test rpm og forbrug med throttle
         self.engine.throttlePosition = 0.5
         self.engine.updateModel(60)
-        self.assertEqual(self.engine.currentRpm, 50)
+        self.assertEqual(self.engine.currentRPM, 50)
         self.assertEqual(self.engine.theTank.contents, 99.875)
         # Test korrekt rotation af gearbox
-        self.engine.theGearbox.wheels['frontLeft'].orientation = 0
+        self.engine.theGearbox.wheels['FL'].orientation = 0
         self.engine.theGearbox.currentGear = 5
         self.engine.theGearbox.clutchEngaged = True
         self.engine.updateModel(1)
-        self.assertEqual(self.engine.theGearbox.wheels['frontLeft'].orientation, 60)
+        self.assertEqual(self.engine.theGearbox.wheels['FL'].orientation, 60)
         # Gentag tests med tom tank
         self.engine.theTank.contents = 0
         # Test rpm med throttle
         self.engine.throttlePosition = 0.5
         self.engine.updateModel(60)
-        self.assertEqual(self.engine.currentRpm, 0)
+        self.assertEqual(self.engine.currentRPM, 0)
         # Test korrekt rotation af gearbox
-        self.engine.theGearbox.wheels['frontLeft'].orientation = 0
+        self.engine.theGearbox.wheels['FL'].orientation = 0
         self.engine.theGearbox.currentGear = 5
         self.engine.theGearbox.clutchEngaged = True
         self.engine.updateModel(1)
-        self.assertEqual(self.engine.theGearbox.wheels['frontLeft'].orientation, 0)
+        self.assertEqual(self.engine.theGearbox.wheels['FL'].orientation, 0)
 
 class GearboxTester(unittest.TestCase):
 
