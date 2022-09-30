@@ -39,6 +39,13 @@ class Gearbox(object):
         elif self.currentGear >0:
             self.currentGear = -1
 
+
+    def rotate(self, revolutions):
+        if self.clutchEnganged:
+            for Wheel in self.wheels:
+                self.wheels[Wheel].rotate(revolutions * self.gears[self.currentGear])
+
+
 class Tank(object):
 
     def __init__(self):
