@@ -18,7 +18,26 @@ class Engine(object):
 
 
 class Gearbox(object):
+    def __init__(self):
+        self.wheels ={'FR':Wheel(), 'FL':Wheel(), 'BR':Wheel(), 'BL':Wheel()}
+        self.gears = [0, 0.8, 1, 1.4, 2.2, 3.8]
+        self.clutchEnganged = False
+        self.currentGear = 0
 
+    def shiftUp(self, currentGear):
+        self.currentGear += currentGear
+        if self.currentGear >6:
+            self.currentGear = 6
+        elif self.currentGear <6:
+            self.currentGear = +1
+
+
+    def shiftDown(self,currentGear):
+        self.currentGear -= currentGear
+        if self.currentGear <0:
+            self.currentGear = 0
+        elif self.currentGear >0:
+            self.currentGear = -1
 
 class Tank(object):
 
