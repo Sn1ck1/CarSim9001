@@ -4,7 +4,7 @@ class Car(object):
     def __init__(self):
         self.theEngine = Engine()
 
-    def updateMoldel(self, dt):
+    def updateModel(self, dt):
         self.theEngine.updateModel(dt)
 
 class Wheel(object):
@@ -20,25 +20,25 @@ class Engine(object):
     def __init__(self):
         self.throttlePosition = 0
         self.theGearbox = Gearbox()
-        self.currentRPM = 0
+        self.currentRpm = 0
         self.consumptionRate = 0.0025
         self.maxRPM = 100
         self.theTank = Tank()
 
     def updateModel(self,dt):
         if self.theTank.contents > 0:
-            self.currentRPM = self.throttlePosition * self.maxRPM
+            self.currentRpm = self.throttlePosition * self.maxRPM
             self.theTank.remove(
-                self.currentRPM * self.consumptionRate)
+                self.currentRpm * self.consumptionRate)
             self.theGearbox.rotate(
-                self.currentRPM * (dt / 60))
+                self.currentRpm * (dt / 60))
         else:
-            self.currentRPM = 0
+            self.currentRpm = 0
 
 
 class Gearbox(object):
     def __init__(self):
-        self.wheels ={'FR':Wheel(), 'FL':Wheel(), 'BR':Wheel(), 'BL':Wheel()}
+        self.wheels ={'frontRight': Wheel(), 'frontLeft': Wheel(), 'rearRight': Wheel(), 'rearLeft': Wheel()}
         self.gears = [0, 0.8, 1, 1.4, 2.2, 3.8]
         self.clutchEngaged = False
         self.currentGear = 0
