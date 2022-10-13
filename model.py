@@ -1,18 +1,19 @@
 from random import randint
 
-
-
-
 class Car(object):
-    pass
+    def __init__(self):
+        self.theEngine = Engine()
+
+    def updateMoldel(self, dt):
+        self.theEngine.updateModel(dt)
 
 class Wheel(object):
     def __init__(self):
         self.orientation = randint(0, 360)
 
     def rotate(self, revolutions):
-        degreesOfRotation = (360 * revolutions) %360
-        self.orientation = (self.orientation + degreesOfRotation % 360)
+        degreesOfRotation = 360 * revolutions
+        self.orientation = (self.orientation + degreesOfRotation) % 360
 
 class Engine(object):
 
@@ -24,13 +25,13 @@ class Engine(object):
         self.maxRPM = 100
         self.theTank = Tank()
 
-    def updateModel(self,data):
+    def updateModel(self,dt):
         if self.theTank.contents > 0:
             self.currentRPM = self.throttlePosition * self.maxRPM
             self.theTank.remove(
                 self.currentRPM * self.consumptionRate)
             self.theGearbox.rotate(
-                self.currentRPM * (data / 60))
+                self.currentRPM * (dt / 60))
         else:
             self.currentRPM = 0
 
@@ -45,16 +46,17 @@ class Gearbox(object):
     def shiftUp(self):
         if self.currentGear < len(
                 self.gears) - 1 and not self.clutchEngaged:
-            self.currentGear = self.currentGear + 1
+            self.currentGear += 1
 
     def shiftDown(self):
         if self.currentGear > 0 and not self.clutchEngaged:
-            self.currentGear = self.currentGear - 1
+            self.currentGear -= 1
 
     def rotate(self, revolutions):
         if self.clutchEngaged:
+            newRevs = revolutions * self.gears[self.currentGear]
             for wheel in self.wheels:
-                self.wheels[wheel].rotate(revolutions * self.gears[self.currentGear])
+                self.wheels[wheel].rotate(newRevs)
 
 
 class Tank(object):
