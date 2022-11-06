@@ -20,20 +20,20 @@ class Engine(object):
     def __init__(self):
         self.throttlePosition = 0 # throttle 1 eller 0
         self.theGearbox = Gearbox()
-        self.currentRpm = 0 # deafault = 0
+        self.currentRPM = 0 # deafault = 0
         self.consumptionRate = 0.0025 # en konstant som styrer hvor meget bilen skal bruge af benzin.
         self.maxRPM = 100 # sætter et maximum for hastigheden
         self.theTank = Tank()
 
     def updateModel(self,dt): # selve kernekoden af bilen. Denne function sørger for at det hel virker
         if self.theTank.contents > 0: # hvis tankens indhold er højere end 0 skal bilen kunne køre
-            self.currentRpm = self.throttlePosition * self.maxRPM # sætter currentRpm til throttlePosition * maxRPM
+            self.currentRPM = self.throttlePosition * self.maxRPM # sætter currentRPM til throttlePosition * maxRPM
             self.theTank.remove(
-                self.currentRpm * self.consumptionRate) # fjerner hvor meget der er i tanken ved at gange currentRpm med konstanten consumptionRate.
+                self.currentRPM * self.consumptionRate) # fjerner hvor meget der er i tanken ved at gange currentRPM med konstanten consumptionRate.
             self.theGearbox.rotate(
-                self.currentRpm * (dt / 60)) # rotere gearbox med hvor mange gange der opdateres
+                self.currentRPM * (dt / 60)) # rotere gearbox med hvor mange gange der opdateres
         else:
-            self.currentRpm = 0 # hvis brændstof er = 0 så set currentrpm til 0
+            self.currentRPM = 0 # hvis brændstof er = 0 så set currentRPM til 0
 
 
 class Gearbox(object):
